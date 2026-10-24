@@ -7,6 +7,9 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float interactionDistance;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Transform raycastOrigin;
+    private Vector3 origin;
+    private Vector3 direction;
+    private RaycastHit hit;
     
     void Update()
     {
@@ -15,14 +18,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckInteractableObject()
     {
-        Vector3 origin = raycastOrigin != null ? raycastOrigin.position : transform.position + Vector3.up * 1f;
-        Vector3 direction = transform.forward;
+        origin = raycastOrigin != null ? raycastOrigin.position : transform.position + Vector3.up * 1f;
+        direction = transform.forward;
 
-        Debug.DrawRay(origin, direction * interactionDistance, Color.green);
+        Debug.DrawRay(origin, direction * interactionDistance, Color.blue);
         
-
-        RaycastHit hit;
-
        
         if (Physics.Raycast(origin, direction, out hit, interactionDistance, interactableLayer))
         {
@@ -31,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (interactableObject != null)
             {
-                Debug.Log("Has chocado con un interactuable");
+                Debug.Log("Has chocado con un interactuable, presiona E");
                 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
